@@ -1,0 +1,29 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+PeakData pick_peaks(vector<int> v) {
+  PeakData result;
+  int temp = 0, tam = v.size();
+  for(int  i = 1; i < tam - 1; i++){
+    if(temp != 0){
+      if(v[i] > v[i + 1]){
+        result.pos.push_back(temp);
+        result.peaks.push_back(v[i]);
+        temp = 0;
+      }
+      if(v[i] < v[i+ 1]){ 
+        temp = 0;
+      }
+    }
+    else if((v[i] > v[i-1]) && (v[i] > v[i+1])){
+      result.pos.push_back(i);
+      result.peaks.push_back(v[i]);
+    }
+    else if((v[i] == v[i + 1]) && (v[i] > v[i - 1])){
+      temp = i;
+    }
+  }
+  return result;
+}
