@@ -1,0 +1,30 @@
+#include <vector>
+using namespace std;
+
+int find_even_index (const vector <int> numbers1) {
+  long int temp = 0, max = numbers1.size();
+  vector<int> numbers = numbers1;
+  vector<int> numbers_b;
+  vector<int> numbers_e;
+  for(vector<int>::iterator it = numbers.begin(); it != numbers.end(); ++it){
+    temp += *it;
+    numbers_b.push_back(temp);
+  }
+  temp = 0;
+  for(int i = max - 1; i >= 0; i--){
+    temp += numbers[i];
+    numbers_e.push_back(temp);
+  }
+  if(!numbers_e[max-2]){
+    return 0;
+  }
+  if(!numbers_e[max-2]){
+    return max - 1;
+  }
+  for(int i = 0; i < max; i++){
+    if(numbers_b[i] == numbers_e[max-3-i]){
+      return i + 1;
+    }
+  }
+  return -1;
+}
