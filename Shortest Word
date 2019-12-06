@@ -1,0 +1,18 @@
+#include <sstream>
+
+using namespace std;
+
+int find_short(string str)
+{
+  int result = 1024;
+  istringstream iss(str);
+    do
+    {
+        string subs;
+        iss >> subs;
+        if((result > subs.size()) && !subs.empty()){
+          result = subs.size();
+        }
+    } while (iss);
+  return result;
+}
