@@ -1,0 +1,10 @@
+int josephusSurvivor(int n, int k) {
+  int result;
+  if(n ==1){
+    return 1;
+  }
+  else{
+    result = (josephusSurvivor(n-1, k) + k - 1)%n + 1;
+  }
+  return result;
+}
