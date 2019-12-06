@@ -1,0 +1,27 @@
+#include<vector>
+
+using namespace std;
+
+bool isValidWalk(vector<char> walk) {
+  int n = 0, s = 0, w = 0, e = 0;
+  for(vector<char>::iterator it = walk.begin(); it != walk.end(); ++it){
+    if(*it == 'n'){
+		n++;
+	}
+	else if(*it == 's'){
+		s++;
+	}
+	else if(*it == 'e'){
+		e++;
+	}
+	else if(*it == 'w'){
+		w++;
+	}
+  }
+  if((n == s) && (e == w) && (walk.size() == 10)){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
