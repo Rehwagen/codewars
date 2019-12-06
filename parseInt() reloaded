@@ -1,0 +1,105 @@
+#include <string>
+#include <vector>
+#include <map>
+
+using namespace std;
+
+static map<string, int> comp;
+
+int verificar(string s){
+	int result = 0;
+	string temp;
+	for(int j = 0; j < s.size(); j++){
+		if(s[j] == '-'){
+			s[j] = ' ';
+			istringstream si(s);
+			si >> temp;
+			for(map<string, int>::iterator it = comp.begin(); it != comp.end(); ++it){
+				if(it->first == temp){
+					result += it->second;
+				}
+			}
+			si >> temp;
+			for(map<string, int>::iterator it = comp.begin(); it != comp.end(); ++it){
+				if(it->first == temp){
+					result += it->second;
+				}
+			}
+			return result;
+		}
+	}
+	for(map<string, int>::iterator it = comp.begin(); it != comp.end(); ++it){
+		if(it->first == s){
+			result += it->second;
+		}
+	}
+	return result;
+}
+
+long parse_int(string number) {
+  comp["zero"] = 0;
+	comp["one"] = 1;
+	comp["two"] = 2;
+	comp["three"] = 3;
+	comp["four"] = 4;
+	comp["five"] = 5;
+	comp["six"] = 6;
+	comp["seven"] = 7;
+	comp["eight"] = 8;
+	comp["nine"] = 9;
+	comp["ten"] = 10;
+	comp["eleven"] = 11;
+	comp["twelve"] = 12;
+	comp["thirteen"] = 13;
+	comp["fourteen"] = 14;
+	comp["fifteen"] = 15;
+	comp["sixteen"] = 16;
+	comp["seventeen"] = 17;
+	comp["eighteen"] = 18;
+	comp["nineteen"] = 19;
+	comp ["twenty"] = 20;
+	comp["thirty"] = 30;
+	comp["forty"] = 40;
+	comp["fifty"] = 50;
+	comp["sixty"] = 60;
+	comp["seventy"] = 70;
+	comp["eighty"] = 80;
+	comp["ninety"] = 90;
+	long result = 0, temp1 = 0;
+	string temp;
+	vector<string> aux;
+	istringstream ss(number);
+	while(ss){
+		ss >> temp;
+		aux.push_back(temp);
+	}
+	aux.erase(aux.end() - 1);
+	int tam = aux.size();
+	for(int i = tam - 1; i >= 0; i--){
+		if(aux[i] == "hundred"){
+			result += 100*verificar(aux[i - 1]);
+			i--;
+		}
+		else if(aux[i] == "thousand"){
+			for(int j = i - 1; j >= 0; j--){
+				if(aux[j] == "hundred"){
+					temp1 += 100*verificar(aux[j - 1]);
+					j--;
+				}
+				else if(aux[j] != "and"){
+					temp1 += verificar(aux[j]);
+				}
+			}
+			temp1 *= 1000;
+			result += temp1;
+			return result;
+		}
+		else if(aux[i] == "million"){
+			return 1000000;
+		}
+		else if(aux[i] != "and"){
+			result += verificar(aux[i]);
+		}
+	}
+  return result;
+}
