@@ -1,0 +1,27 @@
+#include <map>
+
+using namespace std;
+
+bool valid_braces(string braces) 
+{
+  string aux;
+  map<char, char> chars;
+  chars['('] = ')';
+  chars['['] = ']';
+  chars['{'] = '}';
+  aux += braces[0];
+  for(int i = 1; i < braces.size(); i++){
+    if(braces[i] == chars[aux[aux.size() - 1]]){
+      aux.erase(aux.end()-1);
+    }
+    else{
+      aux += braces[i];
+    }
+  }
+  if(!aux.size()){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
