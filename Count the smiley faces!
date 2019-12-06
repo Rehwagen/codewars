@@ -1,0 +1,21 @@
+using namespace std;
+
+int countSmileys(std::vector<std::string> arr)
+{
+  int result = 0;
+  string aux;
+  for(vector<string>::iterator it = arr.begin(); it != arr.end(); ++it){
+    aux = *it;
+     if((aux[0] == ':') || (aux[0] == ';')){
+       if(((aux[1] == ')') || (aux[1] == 'D')) && (aux.size() == 2)){
+         result++;
+       }
+       else if((aux.size() > 2) && ((aux[1] == '-') || (aux[1] == '~'))){
+         if((aux[2] == ')') || (aux[2] == 'D')){
+           result++;
+         }
+       }
+     } 
+  }
+  return result;
+}
