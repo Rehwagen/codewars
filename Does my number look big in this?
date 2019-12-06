@@ -1,0 +1,23 @@
+#include <cmath>
+
+bool narcissistic( int value ){
+  int temp = 1, aux = 1, result = 0, n = 0, comp;
+  comp = value;
+  for(aux = 10;  temp; aux *= 10){
+    temp = value/aux;
+    n++;
+  }
+  aux /= 100;
+  for(int i = 0; i < n; i++){
+    temp = value/aux;
+    value -= temp * aux;
+    aux /= 10;
+    result += pow(temp, n);
+  }
+  if(result == comp){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
