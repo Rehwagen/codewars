@@ -1,0 +1,20 @@
+#include <string>
+using namespace std;
+
+string rot13(string msg)
+{
+  int tam = msg.size();
+  string result;
+  for(int i = 0; i < tam; i++){
+    if(((msg[i] > 'M') && (msg[i] <= 'Z')) || ((msg[i] > 'm') && (msg[i] <= 'z'))){
+      result += msg[i] - 13;
+    }
+    else if(((msg[i] <= 'M') && (msg[i] >= 'A')) || ((msg[i] <= 'm') && (msg[i] >= 'a'))){
+      result += msg[i] + 13;
+    }
+    else{
+      result += msg[i];
+    }
+  }
+  return result;
+}
