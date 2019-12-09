@@ -1,0 +1,59 @@
+#include <vector>
+
+using namespace std;
+
+bool validSolution(unsigned int board[9][9]){
+  vector<unsigned int> ref, aux;
+  int tam;
+  for(int i = 0; i < 9; i++){
+    aux.push_back(i+1);
+  }
+  ref = aux;
+  for(int k = 0; k < 9; k++){
+    for(int i = 0; i < 9; i++){
+      tam = ref.size();
+      for(int j = 0; j < tam; j++){
+        if(ref[j] == board[i][k]){
+          ref.erase(ref.begin()+j);
+        }
+      }
+    }
+    if(!ref.empty()){
+      return false;
+    }
+    ref = aux;
+  }
+  for(int k = 0; k < 9; k++){
+    for(int i = 0; i < 9; i++){
+      tam = ref.size();
+      for(int j = 0; j < tam; j++){
+        if(ref[j] == board[k][i]){
+          ref.erase(ref.begin()+j);
+        }
+      }
+    }
+    if(!ref.empty()){
+      return false;
+    }
+    ref = aux;
+  }
+  for(int k1 = 0; k1 < 6; k1++){
+    for(int i1 = 0; i1 < 6; i1++){
+      for(int k = 0; k < 3; k++){
+        for(int i = 0; i < 3; i++){
+          tam = ref.size();
+          for(int j = 0; j < tam; j++){
+            if(ref[j] == board[i][k]){
+              ref.erase(ref.begin()+j);
+            }
+          }
+        }
+      }
+    }
+    if(!ref.empty()){
+      return false;
+    }
+    ref = aux;
+  }
+  return true;
+}
