@@ -1,0 +1,68 @@
+#include <string>
+
+using namespace std;
+
+string sum_strings(string a, string b) {
+  string result, temp_s;
+  int size_a = a.size(), size_b = b.size(), size_main = size_b, temp_a =  0, temp_b = 0, temp, aux= 0, n;
+  if(size_a < size_b){
+    size_main = size_a;
+  }
+  for(int i = 1; i <= size_main; i++){
+    temp_a = static_cast<int>(a[size_a - i]) - 48;
+    temp_b = static_cast<int>(b[size_b - i]) - 48;
+    temp = temp_a + temp_b + aux;
+    aux = 0;
+	temp_s = to_string(temp);
+    if(temp > 9){
+      aux = 1;
+	  result += temp_s[1];
+    }
+	else{
+	  result += temp_s[0];
+	}
+  }
+  if(size_a < size_b){
+	int dif = size_b - size_a;
+	for(int i = 1; i <= dif; i++){
+		temp_a = static_cast<int>(b[dif - i]) - 48;
+		temp = temp_a + aux;
+		aux = 0;
+		temp_s = to_string(temp);
+        if(temp > 9){
+          aux = 1;
+	      result += temp_s[1];
+        }
+	    else{
+	      result += temp_s[0];
+	    }
+	}
+  }
+  else if(size_a > size_b){
+	int dif = size_a - size_b;
+	for(int i = 1; i <= dif; i++){
+		temp_a = static_cast<int>(a[dif - i]) - 48;
+		temp = temp_a + aux;
+		aux = 0;
+		temp_s = to_string(temp);
+        if(temp > 9){
+          aux = 1;
+	      result += temp_s[1];
+        }
+	    else{
+	      result += temp_s[0];
+	    }
+	}
+  }
+  if(aux){
+	result += to_string(aux);
+  }
+  n = result.size();
+  for (int i = 0; i < n / 2; i++) {
+    swap(result[i], result[n - i - 1]);
+  }
+  while((result[0] == '0') && (n > 1)){
+    result.erase(result.begin());
+  }
+  return result;
+}
