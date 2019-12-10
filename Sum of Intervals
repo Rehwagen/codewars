@@ -1,0 +1,60 @@
+#include <vector>
+#include <utility>
+
+using namespace std;
+
+int sum_intervals(vector<pair<int, int>> inter) {
+  pair<int, int> menor;
+  int fim = 0, tam, aux, i, tirar = 0;
+  vector<pair<int, int>> result;
+  bool continuar;
+  while(!inter.empty()){
+    continuar = true;
+	menor = inter[0];
+	tam = inter.size();
+    for(i = 0; i < tam; i++){
+      if(inter[i].first <= menor.first){
+		if(inter[i].first < menor.first){
+			menor = inter[i];
+			aux = i;
+			inter.erase(inter.begin()+i);
+			--i;
+		}
+		if(inter[i].first == menor.first){
+			if(inter[i].second > menor.second){
+				menor = inter[i];
+				aux = i;
+				inter.erase(inter.begin()+i);
+				--i;
+			}
+		}
+      }
+    }
+    while(continuar){
+	  tam = inter.size();
+	  tirar = 0;
+	  continuar = false;
+      for(int i = 0; i < tam-tirar; i++){
+        if(inter[i].first < menor.second){
+			if(inter[i].second < menor.second){
+				inter.erase(inter.begin()+i);
+				tirar++;
+				i--;
+			}
+			else{
+				menor.second = inter[i].second;
+				inter.erase(inter.begin()+i);
+				continuar = true;
+				i--;
+				tirar++;
+			}
+        }
+      }
+    }
+    result.push_back(menor);
+  }
+  for(vector<pair<int, int>>::iterator it = result.begin(); it != result.end(); ++it){
+    fim += it->second - it->first;
+  }
+  return fim;
+}
