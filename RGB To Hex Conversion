@@ -1,0 +1,38 @@
+using namespace std;
+
+class RGBToHex
+{
+  public:
+  static string rgb(int r, int g, int b);
+};
+
+string RGBToHex::rgb(int r, int g, int b){
+  if(r > 255) r = 255;
+  if(g > 255) g = 255;
+  if(b > 255) b = 255;
+  if(r < 0) r = 0;
+  if(g < 0) g = 0;
+  if(b < 0) b = 0;
+  string result;
+  stringstream sr;
+  sr << hex << r; // int decimal_value
+  string resr ( sr.str() );
+  if(resr.size() == 1) result += '0';
+  result += resr;
+  stringstream sg;
+  sg << hex << g; // int decimal_value
+  string resg ( sg.str() );
+  if(resg.size() == 1) result += '0';
+  result += resg;
+  stringstream sb;
+  sb << hex << b; // int decimal_value
+  string resb ( sb.str() );
+  if(resb.size() == 1) result += '0';
+  result += resb;
+  for(int i = 0; i < 6; i++){
+    if((result[i] >= 'a') && (result[i] <= 'z')){
+      result[i] = static_cast<char>(result[i] - 32);
+    }
+  }
+  return result;
+}
