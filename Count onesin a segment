@@ -1,0 +1,17 @@
+long long getBits(int N){ 
+    int two = 2; 
+    long long result = 0;
+    int n = N; 
+    while(n){ 
+        result += (N/two)*(two>>1); 
+        if((N&(two-1)) > (two>>1)-1) result += (N&(two-1)) - (two>>1)+1; 
+        two <<= 1; 
+        n >>= 1; 
+    } 
+    return result; 
+} 
+
+long long countOnes ( int left, int right )
+{
+	return getBits(right) - getBits(left - 1);
+}
