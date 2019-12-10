@@ -1,0 +1,41 @@
+#include <vector>
+
+using namespace std;
+
+vector<int> snail(vector<vector<int>> snail_map) {
+  vector<int> result;
+  int tamx = snail_map[0].size(), tamy = snail_map.size(), y = 0, y1;
+  while(!snail_map.empty()){
+    tamx = snail_map[0].size();
+    tamy = snail_map.size();
+	y = 0;
+    while(!snail_map[y].empty()){
+      result.push_back(snail_map[y][0]);
+      snail_map[y].erase(snail_map[y].begin());
+    }
+	snail_map.erase(snail_map.begin()+y);
+	if(snail_map.empty()){
+		return result;
+	}
+    for(y = 0; y < tamy - 1; y++){
+      result.push_back(snail_map[y][tamx-1]);
+      snail_map[y].erase(snail_map[y].begin()+tamx-1);
+    }
+	y--;
+	tamx--;
+    while(!snail_map[y].empty()){
+	  tamx--;
+      result.push_back(snail_map[y][tamx]);
+      snail_map[y].erase(snail_map[y].end()-1);
+    }
+	snail_map.erase(snail_map.begin()+y);
+	if(snail_map.empty()){
+		return result;
+	}
+    for(y1 = y - 1; y1 >= 0; y1--){
+      result.push_back(snail_map[y1][0]);
+      snail_map[y1].erase(snail_map[y1].begin());
+    }
+  }
+  return result;
+}
